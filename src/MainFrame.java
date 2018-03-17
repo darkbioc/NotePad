@@ -1,3 +1,17 @@
+
+//import static java.awt.SystemColor.text;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -26,6 +40,8 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser = new javax.swing.JFileChooser();
+        jOptionPane = new javax.swing.JOptionPane();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -42,8 +58,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuEdit = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenu();
 
+        jFileChooser.setAcceptAllFileFilterUsed(false);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
         jButton1.setText("Save");
@@ -71,6 +90,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         jMenuOpen.setText("Open File");
+        jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuOpenActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuOpen);
 
         jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
@@ -83,6 +107,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jMenuSave);
 
         jMenuSaveAs.setText("Save as...");
+        jMenuSaveAs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSaveAsActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuSaveAs);
         jMenuFile.add(jSeparator1);
 
@@ -115,6 +144,50 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuExitActionPerformed
+
+    private void jMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuOpenActionPerformed
+       int returnVal = jFileChooser.showOpenDialog(this);
+       if (returnVal == JFileChooser.APPROVE_OPTION) 
+       {
+        File file = jFileChooser.getSelectedFile();
+        try 
+        {
+          // What to do with the file, e.g. display it in a TextArea
+          jTextArea.read( new FileReader( file.getAbsolutePath() ), null );
+        } 
+        catch (IOException ex) 
+        {
+          System.out.println("problem accessing file"+file.getAbsolutePath());
+        }
+       }
+    }//GEN-LAST:event_jMenuOpenActionPerformed
+
+    private void jMenuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveAsActionPerformed
+        //String text = jTextArea.getText();
+        String filename = jOptionPane.showInputDialog("Name this file");
+        System.out.println(filename);
+        JFileChooser savefile = new JFileChooser();
+        savefile.setSelectedFile(new File(filename));
+        savefile.showSaveDialog(savefile);
+        BufferedWriter writer;
+        int sf = savefile.showSaveDialog(null);
+        if(sf == JFileChooser.APPROVE_OPTION){
+            try {
+                writer = new BufferedWriter(new FileWriter(filename,
+                        false));
+                writer.write(jTextArea.getText());
+                writer.close();
+                jOptionPane.showMessageDialog(null, "File has been saved","File Saved",jOptionPane.INFORMATION_MESSAGE);
+                // true for rewrite, false for override
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else if(sf == JFileChooser.CANCEL_OPTION){
+            jOptionPane.showMessageDialog(null, "File save has been canceled");
+        }
+    
+    }//GEN-LAST:event_jMenuSaveAsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,10 +223,25 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
+    private File getSaveLocation() 
+    {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
+        int result = chooser.showSaveDialog(this);
+        if (result == chooser.APPROVE_OPTION) 
+        { 
+            return chooser.getSelectedFile();
+        } 
+        else 
+        {
+            return null;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JFileChooser jFileChooser;
     private javax.swing.JMenu jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuEdit;
@@ -163,6 +251,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuOpen;
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JMenuItem jMenuSaveAs;
+    private javax.swing.JOptionPane jOptionPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextArea jTextArea;
