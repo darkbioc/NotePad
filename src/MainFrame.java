@@ -262,6 +262,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jMenuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/NewFile.png"))); // NOI18N
         jMenuNew.setText("New");
         jMenuNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -271,6 +272,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jMenuNew);
 
         jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Open.png"))); // NOI18N
         jMenuOpen.setText("Open File");
         jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,6 +282,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jMenuOpen);
 
         jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Save.png"))); // NOI18N
         jMenuSave.setText("Save");
         jMenuSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,6 +291,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenuFile.add(jMenuSave);
 
+        jMenuSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SaveAs.png"))); // NOI18N
         jMenuSaveAs.setText("Save as...");
         jMenuSaveAs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -298,6 +302,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuFile.add(jSeparator1);
 
         jMenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Exit.png"))); // NOI18N
         jMenuExit.setText("Exit");
         jMenuExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,6 +320,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/About.png"))); // NOI18N
         jMenuItem1.setText("Info");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

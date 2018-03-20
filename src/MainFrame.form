@@ -244,6 +244,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/NewFile.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="New"/>
               </Properties>
               <Events>
@@ -254,6 +257,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+O"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Open.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Open File"/>
               </Properties>
@@ -266,6 +272,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Save.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Save"/>
               </Properties>
               <Events>
@@ -274,6 +283,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuSaveAs">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/SaveAs.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Save as..."/>
               </Properties>
               <Events>
@@ -286,6 +298,9 @@
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+E"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Exit.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exit"/>
               </Properties>
@@ -305,6 +320,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/About.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Info"/>
               </Properties>
               <Events>
