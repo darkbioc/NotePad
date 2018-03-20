@@ -68,6 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuExit = new javax.swing.JMenuItem();
         jMenuAbout = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jFileChooser.setAcceptAllFileFilterUsed(false);
 
@@ -136,10 +137,11 @@ public class MainFrame extends javax.swing.JFrame {
         jDialogAbout.setMaximumSize(new java.awt.Dimension(210, 90));
         jDialogAbout.setMinimumSize(new java.awt.Dimension(210, 90));
         jDialogAbout.setPreferredSize(new java.awt.Dimension(210, 90));
+        jDialogAbout.setResizable(false);
 
         jLabel2.setText("Made by: Bruno");
 
-        jLabel3.setText("V1.0 - 2018");
+        jLabel3.setText("V1.3 - 2018");
 
         javax.swing.GroupLayout jDialogAboutLayout = new javax.swing.GroupLayout(jDialogAbout.getContentPane());
         jDialogAbout.getContentPane().setLayout(jDialogAboutLayout);
@@ -150,14 +152,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
         jDialogAboutLayout.setVerticalGroup(
             jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogAboutLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
@@ -312,6 +314,15 @@ public class MainFrame extends javax.swing.JFrame {
                 jMenuAboutActionPerformed(evt);
             }
         });
+
+        jMenuItem1.setText("Info");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenuAbout.add(jMenuItem1);
+
         jMenuBar1.add(jMenuAbout);
 
         setJMenuBar(jMenuBar1);
@@ -436,7 +447,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuFileActionPerformed
 
     private void jMenuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAboutActionPerformed
-        jDialogAbout.setVisible(true);
+        
     }//GEN-LAST:event_jMenuAboutActionPerformed
 
     private void jButtonExitYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitYesActionPerformed
@@ -466,6 +477,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         jMenuOpenActionPerformed(evt);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        jDialogAbout.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     public void newFile()
     {
         jDialogNew.dispose();
@@ -523,6 +538,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuExit;
     private javax.swing.JMenu jMenuFile;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuNew;
     private javax.swing.JMenuItem jMenuOpen;
     private javax.swing.JMenuItem jMenuSave;
