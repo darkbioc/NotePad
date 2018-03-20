@@ -141,7 +141,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Made by: Bruno");
 
-        jLabel3.setText("V1.3 - 2018");
+        jLabel3.setText("V1.5 - 2018");
 
         javax.swing.GroupLayout jDialogAboutLayout = new javax.swing.GroupLayout(jDialogAbout.getContentPane());
         jDialogAbout.getContentPane().setLayout(jDialogAboutLayout);
@@ -152,14 +152,14 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jDialogAboutLayout.setVerticalGroup(
             jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogAboutLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
         );
