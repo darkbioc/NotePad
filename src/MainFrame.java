@@ -170,7 +170,7 @@ public class MainFrame extends javax.swing.JFrame {
         jDialogExit.setPreferredSize(new java.awt.Dimension(210, 90));
         jDialogExit.setResizable(false);
 
-        jLabel4.setText("Save before new?");
+        jLabel4.setText("Save before exit?");
 
         jButtonExitYes.setText("Yes");
         jButtonExitYes.addActionListener(new java.awt.event.ActionListener() {
@@ -229,9 +229,19 @@ public class MainFrame extends javax.swing.JFrame {
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton1);
 
-        jButton2.setText("Load");
+        jButton2.setText("Open");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
@@ -340,7 +350,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuSaveActionPerformed
 
     private void jMenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExitActionPerformed
-        System.exit(0);
+        jDialogExit.setVisible(true);
     }//GEN-LAST:event_jMenuExitActionPerformed
 
     private void jMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuOpenActionPerformed
@@ -448,6 +458,14 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButtonExitCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitCancelActionPerformed
         jDialogExit.dispose();
     }//GEN-LAST:event_jButtonExitCancelActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jMenuSaveActionPerformed(evt);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jMenuOpenActionPerformed(evt);
+    }//GEN-LAST:event_jButton2ActionPerformed
     public void newFile()
     {
         jDialogNew.dispose();
