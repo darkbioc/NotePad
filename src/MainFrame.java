@@ -2,15 +2,12 @@
 //import static java.awt.SystemColor.text;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,7 +20,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author bruno
  */
 public class MainFrame extends javax.swing.JFrame {
-
+    private boolean saved = false;
+    boolean canceled;
+    File fileToSave;
     /**
      * Creates new form MainFrame
      */
@@ -41,7 +40,20 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser = new javax.swing.JFileChooser();
-        jOptionPane = new javax.swing.JOptionPane();
+        jDialogNew = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jButtonConfYes = new javax.swing.JButton();
+        jButtonConfNo = new javax.swing.JButton();
+        jButtonConfCancel = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jDialogAbout = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jDialogExit = new javax.swing.JDialog();
+        jLabel4 = new javax.swing.JLabel();
+        jButtonExitYes = new javax.swing.JButton();
+        jButtonExitNo = new javax.swing.JButton();
+        jButtonExitCancel = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -55,12 +67,160 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuSaveAs = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuExit = new javax.swing.JMenuItem();
-        jMenuEdit = new javax.swing.JMenu();
         jMenuAbout = new javax.swing.JMenu();
 
         jFileChooser.setAcceptAllFileFilterUsed(false);
 
+        jDialogNew.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogNew.setTitle("New File");
+        jDialogNew.setAlwaysOnTop(true);
+        jDialogNew.setMaximumSize(new java.awt.Dimension(210, 90));
+        jDialogNew.setMinimumSize(new java.awt.Dimension(210, 90));
+        jDialogNew.setPreferredSize(new java.awt.Dimension(210, 90));
+        jDialogNew.setResizable(false);
+
+        jLabel1.setText("Save before new?");
+
+        jButtonConfYes.setText("Yes");
+        jButtonConfYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfYesActionPerformed(evt);
+            }
+        });
+
+        jButtonConfNo.setText("No");
+        jButtonConfNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfNoActionPerformed(evt);
+            }
+        });
+
+        jButtonConfCancel.setText("Cancel");
+        jButtonConfCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConfCancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialogNewLayout = new javax.swing.GroupLayout(jDialogNew.getContentPane());
+        jDialogNew.getContentPane().setLayout(jDialogNewLayout);
+        jDialogNewLayout.setHorizontalGroup(
+            jDialogNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogNewLayout.createSequentialGroup()
+                .addGroup(jDialogNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDialogNewLayout.createSequentialGroup()
+                        .addComponent(jButtonConfYes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonConfNo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonConfCancel)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jDialogNewLayout.setVerticalGroup(
+            jDialogNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogNewLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(jDialogNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonConfYes)
+                    .addComponent(jButtonConfNo)
+                    .addComponent(jButtonConfCancel)))
+        );
+
+        jButton3.setText("jButton3");
+
+        jDialogAbout.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogAbout.setTitle("ABOUT");
+        jDialogAbout.setAlwaysOnTop(true);
+        jDialogAbout.setMaximumSize(new java.awt.Dimension(210, 90));
+        jDialogAbout.setMinimumSize(new java.awt.Dimension(210, 90));
+        jDialogAbout.setPreferredSize(new java.awt.Dimension(210, 90));
+
+        jLabel2.setText("Made by: Bruno");
+
+        jLabel3.setText("V1.0 - 2018");
+
+        javax.swing.GroupLayout jDialogAboutLayout = new javax.swing.GroupLayout(jDialogAbout.getContentPane());
+        jDialogAbout.getContentPane().setLayout(jDialogAboutLayout);
+        jDialogAboutLayout.setHorizontalGroup(
+            jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogAboutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addContainerGap(90, Short.MAX_VALUE))
+        );
+        jDialogAboutLayout.setVerticalGroup(
+            jDialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogAboutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
+
+        jDialogExit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogExit.setTitle("Exit");
+        jDialogExit.setAlwaysOnTop(true);
+        jDialogExit.setMaximumSize(new java.awt.Dimension(210, 90));
+        jDialogExit.setMinimumSize(new java.awt.Dimension(210, 90));
+        jDialogExit.setPreferredSize(new java.awt.Dimension(210, 90));
+        jDialogExit.setResizable(false);
+
+        jLabel4.setText("Save before new?");
+
+        jButtonExitYes.setText("Yes");
+        jButtonExitYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitYesActionPerformed(evt);
+            }
+        });
+
+        jButtonExitNo.setText("No");
+        jButtonExitNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitNoActionPerformed(evt);
+            }
+        });
+
+        jButtonExitCancel.setText("Cancel");
+        jButtonExitCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExitCancelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jDialogExitLayout = new javax.swing.GroupLayout(jDialogExit.getContentPane());
+        jDialogExit.getContentPane().setLayout(jDialogExitLayout);
+        jDialogExitLayout.setHorizontalGroup(
+            jDialogExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogExitLayout.createSequentialGroup()
+                .addGroup(jDialogExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDialogExitLayout.createSequentialGroup()
+                        .addComponent(jButtonExitYes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonExitNo)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonExitCancel)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jDialogExitLayout.setVerticalGroup(
+            jDialogExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogExitLayout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
+                .addGroup(jDialogExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonExitYes)
+                    .addComponent(jButtonExitNo)
+                    .addComponent(jButtonExitCancel)))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("NotePad by Bruno");
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
@@ -83,9 +243,19 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jMenuFile.setText("File");
+        jMenuFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFileActionPerformed(evt);
+            }
+        });
 
         jMenuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuNew.setText("New");
+        jMenuNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuNewActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuNew);
 
         jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -126,10 +296,12 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuFile);
 
-        jMenuEdit.setText("Edit");
-        jMenuBar1.add(jMenuEdit);
-
         jMenuAbout.setText("About");
+        jMenuAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuAboutActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(jMenuAbout);
 
         setJMenuBar(jMenuBar1);
@@ -138,11 +310,37 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
-        // TODO add your handling code here:
+        if (saved)
+        {
+            canceled=false;
+            BufferedWriter bw=null;
+            try {
+                bw = new BufferedWriter(new FileWriter(fileToSave));
+                bw.write(jTextArea.getText());
+            } catch (IOException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            finally
+            {
+                if(bw != null)
+                {
+                    try {
+                        bw.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            
+        }
+        else
+        {
+            jMenuSaveAsActionPerformed(evt);
+        }
     }//GEN-LAST:event_jMenuSaveActionPerformed
 
     private void jMenuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuExitActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jMenuExitActionPerformed
 
     private void jMenuOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuOpenActionPerformed
@@ -163,32 +361,99 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuOpenActionPerformed
 
     private void jMenuSaveAsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveAsActionPerformed
-        //String text = jTextArea.getText();
-        String filename = jOptionPane.showInputDialog("Name this file");
-        System.out.println(filename);
-        JFileChooser savefile = new JFileChooser();
-        savefile.setSelectedFile(new File(filename));
-        savefile.showSaveDialog(savefile);
-        BufferedWriter writer;
-        int sf = savefile.showSaveDialog(null);
-        if(sf == JFileChooser.APPROVE_OPTION){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Specify a file to save");   
+        int userSelection = fileChooser.showSaveDialog(this);
+        if (userSelection == JFileChooser.APPROVE_OPTION) 
+        {
+        canceled=false;
+        fileToSave = fileChooser.getSelectedFile();
+        BufferedWriter bw = null;
             try {
-                writer = new BufferedWriter(new FileWriter(filename,
-                        false));
-                writer.write(jTextArea.getText());
-                writer.close();
-                jOptionPane.showMessageDialog(null, "File has been saved","File Saved",jOptionPane.INFORMATION_MESSAGE);
-                // true for rewrite, false for override
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                //fileToSave.createNewFile();
+                bw = new BufferedWriter(new FileWriter(fileToSave));
+                bw.write(jTextArea.getText());
+                saved=true;
+                //System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
-        }else if(sf == JFileChooser.CANCEL_OPTION){
-            jOptionPane.showMessageDialog(null, "File save has been canceled");
+            finally
+            {
+                if(bw != null)
+                {
+                    try {
+                        bw.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
         }
-    
+        else
+        {
+            canceled=true;
+        }
     }//GEN-LAST:event_jMenuSaveAsActionPerformed
 
+    private void jMenuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuNewActionPerformed
+        jDialogNew.setVisible(true);
+    }//GEN-LAST:event_jMenuNewActionPerformed
+
+    private void jButtonConfYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfYesActionPerformed
+        jMenuSaveActionPerformed(evt);
+        if(!canceled)
+        {
+            newFile();
+        }
+        else
+        {
+            jDialogNew.dispose();
+        }
+        
+    }//GEN-LAST:event_jButtonConfYesActionPerformed
+
+    private void jButtonConfCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfCancelActionPerformed
+        jDialogNew.dispose();
+    }//GEN-LAST:event_jButtonConfCancelActionPerformed
+
+    private void jButtonConfNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConfNoActionPerformed
+        newFile();
+    }//GEN-LAST:event_jButtonConfNoActionPerformed
+
+    private void jMenuFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFileActionPerformed
+        jDialogExit.setVisible(true);
+    }//GEN-LAST:event_jMenuFileActionPerformed
+
+    private void jMenuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAboutActionPerformed
+        jDialogAbout.setVisible(true);
+    }//GEN-LAST:event_jMenuAboutActionPerformed
+
+    private void jButtonExitYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitYesActionPerformed
+        jMenuSaveActionPerformed(evt);
+        if(!canceled)
+        {
+            System.exit(0);
+        }
+        else
+        {
+            jDialogExit.dispose();
+        }
+    }//GEN-LAST:event_jButtonExitYesActionPerformed
+
+    private void jButtonExitNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitNoActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonExitNoActionPerformed
+
+    private void jButtonExitCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExitCancelActionPerformed
+        jDialogExit.dispose();
+    }//GEN-LAST:event_jButtonExitCancelActionPerformed
+    public void newFile()
+    {
+        jDialogNew.dispose();
+        jTextArea.setText("");
+        saved=false;
+    }
     /**
      * @param args the command line arguments
      */
@@ -205,53 +470,45 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
         });
-    }
-    private File getSaveLocation() 
-    {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
-        int result = chooser.showSaveDialog(this);
-        if (result == chooser.APPROVE_OPTION) 
-        { 
-            return chooser.getSelectedFile();
-        } 
-        else 
-        {
-            return null;
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonConfCancel;
+    private javax.swing.JButton jButtonConfNo;
+    private javax.swing.JButton jButtonConfYes;
+    private javax.swing.JButton jButtonExitCancel;
+    private javax.swing.JButton jButtonExitNo;
+    private javax.swing.JButton jButtonExitYes;
+    private javax.swing.JDialog jDialogAbout;
+    private javax.swing.JDialog jDialogExit;
+    private javax.swing.JDialog jDialogNew;
     private javax.swing.JFileChooser jFileChooser;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenuItem jMenuExit;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuNew;
     private javax.swing.JMenuItem jMenuOpen;
     private javax.swing.JMenuItem jMenuSave;
     private javax.swing.JMenuItem jMenuSaveAs;
-    private javax.swing.JOptionPane jOptionPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextArea jTextArea;
