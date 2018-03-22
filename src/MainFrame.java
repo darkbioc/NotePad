@@ -1,5 +1,6 @@
 
 //import static java.awt.SystemColor.text;
+import java.awt.event.ActionEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -7,7 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
+import javax.swing.KeyStroke;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.text.Document;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
+import javax.swing.undo.UndoManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,6 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     private boolean saved = false;
     boolean canceled;
     File fileToSave;
+    UndoManager undoManager = new UndoManager();
     /**
      * Creates new form MainFrame
      */
@@ -67,6 +77,9 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuSaveAs = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuExit = new javax.swing.JMenuItem();
+        jMenuEdit = new javax.swing.JMenu();
+        jMenuItemUndo = new javax.swing.JMenuItem();
+        jMenuItemRedo = new javax.swing.JMenuItem();
         jMenuAbout = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -141,7 +154,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Made by: Bruno");
 
-        jLabel3.setText("V1.5 - 2018");
+        jLabel3.setText("V1.6 - 2018");
 
         javax.swing.GroupLayout jDialogAboutLayout = new javax.swing.GroupLayout(jDialogAbout.getContentPane());
         jDialogAbout.getContentPane().setLayout(jDialogAboutLayout);
@@ -167,9 +180,7 @@ public class MainFrame extends javax.swing.JFrame {
         jDialogExit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         jDialogExit.setTitle("Exit");
         jDialogExit.setAlwaysOnTop(true);
-        jDialogExit.setMaximumSize(new java.awt.Dimension(210, 90));
         jDialogExit.setMinimumSize(new java.awt.Dimension(210, 90));
-        jDialogExit.setPreferredSize(new java.awt.Dimension(210, 90));
         jDialogExit.setResizable(false);
 
         jLabel4.setText("Save before exit?");
@@ -248,93 +259,170 @@ public class MainFrame extends javax.swing.JFrame {
 
         getContentPane().add(jToolBar1, java.awt.BorderLayout.PAGE_START);
 
-        jTextArea.setColumns(20);
-        jTextArea.setRows(5);
-        jScrollPane1.setViewportView(jTextArea);
+        Document doc = jTextArea.getDocument();
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        jMenuFile.setText("File");
-        jMenuFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuFileActionPerformed(evt);
+        // Listen for undo and redo events
+        doc.addUndoableEditListener(new UndoableEditListener() {
+            public void undoableEditHappened(UndoableEditEvent evt) {
+                undoManager.addEdit(evt.getEdit());
             }
         });
 
-        jMenuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/NewFile.png"))); // NOI18N
-        jMenuNew.setText("New");
-        jMenuNew.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuNewActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuNew);
+        // Create an undo action and add it to the text component
+        jTextArea.getActionMap().put("Undo",
+            new AbstractAction("Undo") {
+                public void actionPerformed(ActionEvent evt) {
+                    try {
+                        if (undoManager.canUndo()) {
+                            undoManager.undo();
+                        }
+                    } catch (CannotUndoException e) {
+                    }
+                }
 
-        jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Open.png"))); // NOI18N
-        jMenuOpen.setText("Open File");
-        jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuOpenActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuOpen);
+                /*@Override
+                public void actionPerformed(ActionEvent e) {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }*/
+            });
 
-        jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Save.png"))); // NOI18N
-        jMenuSave.setText("Save");
-        jMenuSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSaveActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuSave);
+            // Bind the undo action to ctl-Z
+            jTextArea.getInputMap().put(KeyStroke.getKeyStroke("control Z"), "Undo");
 
-        jMenuSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SaveAs.png"))); // NOI18N
-        jMenuSaveAs.setText("Save as...");
-        jMenuSaveAs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSaveAsActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuSaveAs);
-        jMenuFile.add(jSeparator1);
+            // Create a redo action and add it to the text component
+            jTextArea.getActionMap().put("Redo",
+                new AbstractAction("Redo") {
+                    public void actionPerformed(ActionEvent evt) {
+                        try {
+                            if (undoManager.canRedo()) {
+                                undoManager.redo();
+                            }
+                        } catch (CannotRedoException e) {
+                        }
+                    }
+                });
 
-        jMenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Exit.png"))); // NOI18N
-        jMenuExit.setText("Exit");
-        jMenuExit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuExitActionPerformed(evt);
-            }
-        });
-        jMenuFile.add(jMenuExit);
+                // Bind the redo action to ctl-Y
+                jTextArea.getInputMap().put(KeyStroke.getKeyStroke("control Y"), "Redo");
+                jTextArea.setColumns(20);
+                jTextArea.setRows(5);
+                jTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
+                    public void keyTyped(java.awt.event.KeyEvent evt) {
+                        jTextAreaKeyTyped(evt);
+                    }
+                });
+                jScrollPane1.setViewportView(jTextArea);
 
-        jMenuBar1.add(jMenuFile);
+                getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        jMenuAbout.setText("About");
-        jMenuAbout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAboutActionPerformed(evt);
-            }
-        });
+                jMenuFile.setText("File");
+                jMenuFile.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuFileActionPerformed(evt);
+                    }
+                });
 
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/About.png"))); // NOI18N
-        jMenuItem1.setText("Info");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenuAbout.add(jMenuItem1);
+                jMenuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+                jMenuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/NewFile.png"))); // NOI18N
+                jMenuNew.setText("New");
+                jMenuNew.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuNewActionPerformed(evt);
+                    }
+                });
+                jMenuFile.add(jMenuNew);
 
-        jMenuBar1.add(jMenuAbout);
+                jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+                jMenuOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Open.png"))); // NOI18N
+                jMenuOpen.setText("Open File");
+                jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuOpenActionPerformed(evt);
+                    }
+                });
+                jMenuFile.add(jMenuOpen);
 
-        setJMenuBar(jMenuBar1);
+                jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+                jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Save.png"))); // NOI18N
+                jMenuSave.setText("Save");
+                jMenuSave.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuSaveActionPerformed(evt);
+                    }
+                });
+                jMenuFile.add(jMenuSave);
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                jMenuSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SaveAs.png"))); // NOI18N
+                jMenuSaveAs.setText("Save as...");
+                jMenuSaveAs.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuSaveAsActionPerformed(evt);
+                    }
+                });
+                jMenuFile.add(jMenuSaveAs);
+                jMenuFile.add(jSeparator1);
+
+                jMenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+                jMenuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Exit.png"))); // NOI18N
+                jMenuExit.setText("Exit");
+                jMenuExit.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuExitActionPerformed(evt);
+                    }
+                });
+                jMenuFile.add(jMenuExit);
+
+                jMenuBar1.add(jMenuFile);
+
+                jMenuEdit.setText("Edit");
+                jMenuEdit.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuEditActionPerformed(evt);
+                    }
+                });
+
+                jMenuItemUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+                jMenuItemUndo.setText("Undo");
+                jMenuItemUndo.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuItemUndoActionPerformed(evt);
+                    }
+                });
+                jMenuEdit.add(jMenuItemUndo);
+
+                jMenuItemRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+                jMenuItemRedo.setText("Redo");
+                jMenuItemRedo.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuItemRedoActionPerformed(evt);
+                    }
+                });
+                jMenuEdit.add(jMenuItemRedo);
+
+                jMenuBar1.add(jMenuEdit);
+
+                jMenuAbout.setText("About");
+                jMenuAbout.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuAboutActionPerformed(evt);
+                    }
+                });
+
+                jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/About.png"))); // NOI18N
+                jMenuItem1.setText("Info");
+                jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        jMenuItem1ActionPerformed(evt);
+                    }
+                });
+                jMenuAbout.add(jMenuItem1);
+
+                jMenuBar1.add(jMenuAbout);
+
+                setJMenuBar(jMenuBar1);
+
+                pack();
+            }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveActionPerformed
         if (saved)
@@ -374,15 +462,16 @@ public class MainFrame extends javax.swing.JFrame {
        int returnVal = jFileChooser.showOpenDialog(this);
        if (returnVal == JFileChooser.APPROVE_OPTION) 
        {
-        File file = jFileChooser.getSelectedFile();
+        fileToSave = jFileChooser.getSelectedFile();
         try 
         {
           // What to do with the file, e.g. display it in a TextArea
-          jTextArea.read( new FileReader( file.getAbsolutePath() ), null );
+          jTextArea.read( new FileReader( fileToSave.getAbsolutePath() ), null );
+          saved=true;
         } 
         catch (IOException ex) 
         {
-          System.out.println("problem accessing file"+file.getAbsolutePath());
+          System.out.println("problem accessing file"+fileToSave.getAbsolutePath());
         }
        }
     }//GEN-LAST:event_jMenuOpenActionPerformed
@@ -487,6 +576,22 @@ public class MainFrame extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         jDialogAbout.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jTextAreaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextAreaKeyTyped
+       
+    }//GEN-LAST:event_jTextAreaKeyTyped
+
+    private void jMenuItemUndoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUndoActionPerformed
+       undoManager.undo();
+    }//GEN-LAST:event_jMenuItemUndoActionPerformed
+
+    private void jMenuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuEditActionPerformed
+        
+    }//GEN-LAST:event_jMenuEditActionPerformed
+
+    private void jMenuItemRedoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRedoActionPerformed
+        undoManager.redo();
+    }//GEN-LAST:event_jMenuItemRedoActionPerformed
     public void newFile()
     {
         jDialogNew.dispose();
@@ -542,9 +647,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenuAbout;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuEdit;
     private javax.swing.JMenuItem jMenuExit;
     private javax.swing.JMenu jMenuFile;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItemRedo;
+    private javax.swing.JMenuItem jMenuItemUndo;
     private javax.swing.JMenuItem jMenuNew;
     private javax.swing.JMenuItem jMenuOpen;
     private javax.swing.JMenuItem jMenuSave;
