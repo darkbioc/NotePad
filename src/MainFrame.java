@@ -86,30 +86,31 @@ public class MainFrame extends javax.swing.JFrame {
         jFileChooser.setAcceptAllFileFilterUsed(false);
 
         jDialogNew.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jDialogNew.setTitle("New File");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Bundle"); // NOI18N
+        jDialogNew.setTitle(bundle.getString("MainFrame.jDialogNew.title")); // NOI18N
         jDialogNew.setAlwaysOnTop(true);
         jDialogNew.setMaximumSize(new java.awt.Dimension(210, 90));
         jDialogNew.setMinimumSize(new java.awt.Dimension(210, 90));
         jDialogNew.setPreferredSize(new java.awt.Dimension(210, 90));
         jDialogNew.setResizable(false);
 
-        jLabel1.setText("Save before new?");
+        jLabel1.setText(bundle.getString("MainFrame.jLabel1.text")); // NOI18N
 
-        jButtonConfYes.setText("Yes");
+        jButtonConfYes.setText(bundle.getString("MainFrame.jButtonConfYes.text")); // NOI18N
         jButtonConfYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfYesActionPerformed(evt);
             }
         });
 
-        jButtonConfNo.setText("No");
+        jButtonConfNo.setText(bundle.getString("MainFrame.jButtonConfNo.text")); // NOI18N
         jButtonConfNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfNoActionPerformed(evt);
             }
         });
 
-        jButtonConfCancel.setText("Cancel");
+        jButtonConfCancel.setText(bundle.getString("MainFrame.jButtonConfCancel.text")); // NOI18N
         jButtonConfCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonConfCancelActionPerformed(evt);
@@ -142,19 +143,19 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jButtonConfCancel)))
         );
 
-        jButton3.setText("jButton3");
+        jButton3.setText(bundle.getString("MainFrame.jButton3.text")); // NOI18N
 
         jDialogAbout.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jDialogAbout.setTitle("ABOUT");
+        jDialogAbout.setTitle(bundle.getString("MainFrame.jDialogAbout.title")); // NOI18N
         jDialogAbout.setAlwaysOnTop(true);
         jDialogAbout.setMaximumSize(new java.awt.Dimension(210, 90));
         jDialogAbout.setMinimumSize(new java.awt.Dimension(210, 90));
         jDialogAbout.setPreferredSize(new java.awt.Dimension(210, 90));
         jDialogAbout.setResizable(false);
 
-        jLabel2.setText("Made by: Bruno");
+        jLabel2.setText(bundle.getString("MainFrame.jLabel2.text")); // NOI18N
 
-        jLabel3.setText("V1.6 - 2018");
+        jLabel3.setText(bundle.getString("MainFrame.jLabel3.text")); // NOI18N
 
         javax.swing.GroupLayout jDialogAboutLayout = new javax.swing.GroupLayout(jDialogAbout.getContentPane());
         jDialogAbout.getContentPane().setLayout(jDialogAboutLayout);
@@ -178,28 +179,28 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         jDialogExit.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        jDialogExit.setTitle("Exit");
+        jDialogExit.setTitle(bundle.getString("MainFrame.jDialogExit.title")); // NOI18N
         jDialogExit.setAlwaysOnTop(true);
         jDialogExit.setMinimumSize(new java.awt.Dimension(210, 90));
         jDialogExit.setResizable(false);
 
-        jLabel4.setText("Save before exit?");
+        jLabel4.setText(bundle.getString("MainFrame.jLabel4.text")); // NOI18N
 
-        jButtonExitYes.setText("Yes");
+        jButtonExitYes.setText(bundle.getString("MainFrame.jButtonExitYes.text")); // NOI18N
         jButtonExitYes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExitYesActionPerformed(evt);
             }
         });
 
-        jButtonExitNo.setText("No");
+        jButtonExitNo.setText(bundle.getString("MainFrame.jButtonExitNo.text")); // NOI18N
         jButtonExitNo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExitNoActionPerformed(evt);
             }
         });
 
-        jButtonExitCancel.setText("Cancel");
+        jButtonExitCancel.setText(bundle.getString("MainFrame.jButtonExitCancel.text")); // NOI18N
         jButtonExitCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonExitCancelActionPerformed(evt);
@@ -233,12 +234,12 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("NotePad by Bruno");
+        setTitle(bundle.getString("MainFrame.title")); // NOI18N
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButton1.setText("Save");
+        jButton1.setText(bundle.getString("MainFrame.jButton1.text")); // NOI18N
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -249,7 +250,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton1);
 
-        jButton2.setText("Open");
+        jButton2.setText(bundle.getString("MainFrame.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -315,7 +316,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-                jMenuFile.setText("File");
+                jMenuFile.setText(bundle.getString("MainFrame.jMenuFile.text")); // NOI18N
                 jMenuFile.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuFileActionPerformed(evt);
@@ -324,7 +325,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 jMenuNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
                 jMenuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/NewFile.png"))); // NOI18N
-                jMenuNew.setText("New");
+                jMenuNew.setText(bundle.getString("MainFrame.jMenuNew.text")); // NOI18N
                 jMenuNew.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuNewActionPerformed(evt);
@@ -334,7 +335,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 jMenuOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
                 jMenuOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Open.png"))); // NOI18N
-                jMenuOpen.setText("Open File");
+                jMenuOpen.setText(bundle.getString("MainFrame.jMenuOpen.text")); // NOI18N
                 jMenuOpen.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuOpenActionPerformed(evt);
@@ -344,7 +345,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
                 jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Save.png"))); // NOI18N
-                jMenuSave.setText("Save");
+                jMenuSave.setText(bundle.getString("MainFrame.jMenuSave.text")); // NOI18N
                 jMenuSave.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuSaveActionPerformed(evt);
@@ -353,7 +354,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jMenuFile.add(jMenuSave);
 
                 jMenuSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SaveAs.png"))); // NOI18N
-                jMenuSaveAs.setText("Save as...");
+                jMenuSaveAs.setText(bundle.getString("MainFrame.jMenuSaveAs.text")); // NOI18N
                 jMenuSaveAs.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuSaveAsActionPerformed(evt);
@@ -364,7 +365,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 jMenuExit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
                 jMenuExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Exit.png"))); // NOI18N
-                jMenuExit.setText("Exit");
+                jMenuExit.setText(bundle.getString("MainFrame.jMenuExit.text")); // NOI18N
                 jMenuExit.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuExitActionPerformed(evt);
@@ -374,7 +375,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 jMenuBar1.add(jMenuFile);
 
-                jMenuEdit.setText("Edit");
+                jMenuEdit.setText(bundle.getString("MainFrame.jMenuEdit.text")); // NOI18N
                 jMenuEdit.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuEditActionPerformed(evt);
@@ -382,7 +383,7 @@ public class MainFrame extends javax.swing.JFrame {
                 });
 
                 jMenuItemUndo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
-                jMenuItemUndo.setText("Undo");
+                jMenuItemUndo.setText(bundle.getString("MainFrame.jMenuItemUndo.text")); // NOI18N
                 jMenuItemUndo.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuItemUndoActionPerformed(evt);
@@ -391,7 +392,7 @@ public class MainFrame extends javax.swing.JFrame {
                 jMenuEdit.add(jMenuItemUndo);
 
                 jMenuItemRedo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
-                jMenuItemRedo.setText("Redo");
+                jMenuItemRedo.setText(bundle.getString("MainFrame.jMenuItemRedo.text")); // NOI18N
                 jMenuItemRedo.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuItemRedoActionPerformed(evt);
@@ -401,7 +402,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 jMenuBar1.add(jMenuEdit);
 
-                jMenuAbout.setText("About");
+                jMenuAbout.setText(bundle.getString("MainFrame.jMenuAbout.text")); // NOI18N
                 jMenuAbout.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuAboutActionPerformed(evt);
@@ -409,7 +410,7 @@ public class MainFrame extends javax.swing.JFrame {
                 });
 
                 jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/About.png"))); // NOI18N
-                jMenuItem1.setText("Info");
+                jMenuItem1.setText(bundle.getString("MainFrame.jMenuItem1.text")); // NOI18N
                 jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         jMenuItem1ActionPerformed(evt);
